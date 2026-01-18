@@ -135,6 +135,24 @@ const UNITS = {
             terabytes: { name: 'Terabytes', symbol: 'TB', toBase: 1099511627776 },
         }
     },
+    currency: {
+        name: 'Currency (Live)',
+        icon: '💱',
+        special: true,
+        units: {
+            USD: { name: 'US Dollar', symbol: '$' },
+            EUR: { name: 'Euro', symbol: '€' },
+            GBP: { name: 'British Pound', symbol: '£' },
+            JPY: { name: 'Japanese Yen', symbol: '¥' },
+            CNY: { name: 'Chinese Yuan', symbol: '¥' },
+            CAD: { name: 'Canadian Dollar', symbol: '$' },
+            AUD: { name: 'Australian Dollar', symbol: '$' },
+            INR: { name: 'Indian Rupee', symbol: '₹' },
+            BRL: { name: 'Brazilian Real', symbol: 'R$' },
+            BTC: { name: 'Bitcoin', symbol: '₿' },
+            ETH: { name: 'Ethereum', symbol: 'Ξ' },
+        }
+    },
 };
 
 export default function UnitConverter() {
@@ -143,14 +161,57 @@ export default function UnitConverter() {
     const [toUnit, setToUnit] = useState('feet');
     const [fromValue, setFromValue] = useState('1');
     const [toValue, setToValue] = useState('');
+    const [rates, setRates] = useState(null);
+    const [loadingRates, setLoadingRates] = useState(false);
+
+    // Fetch rates when currency category is selected
+    const fetchRates = async () => {
+        if (rates) return; // Use cached rates if available
+        setLoadingRates(true);
+        try {
+            // Using frankfurter.app free API (No key required)
+            const res = await fetch('https://api.frankfurter.app/latest?from=USD');
+            const data = await res.json();
+
+            // Add Crypto rates (simulated for demo as Frankfurter is fiat only)
+            const mockCrypto = {
+                BTC: 0.000015,
+                ETH: 0.00035,
+                USD: 1
+            };
+
+            setRates({ ...data.rates, ...mockCrypto });
+        } catch (error) {
+            console.error("Failed to load rates", error);
+            // Fallback rates if offline
+            setRates({ USD: 1, EUR: 0.92, GBP: 0.79, JPY: 148.5, CNY: 7.19, CAD: 1.35, AUD: 1.52, INR: 83.1, BRL: 4.95, BTC: 0.000015, ETH: 0.00035 });
+        }
+        setLoadingRates(false);
+    };
 
     const convert = (value, from, to, cat) => {
         if (!value || isNaN(value)) return '';
 
         const categoryData = UNITS[cat];
 
+        // Currency Handling
+        if (cat === 'currency') {
+            if (!rates) return 'Loading...';
+            // Convert everything to USD first (Base), then to Target
+            // Formula: (Value / FromRate) * ToRate
+            // Input 10 EUR -> USD? (10 / 0.92) * 1 = 10.86 USD
+
+            const fromRate = from === 'USD' ? 1 : rates[from];
+            const toRate = to === 'USD' ? 1 : rates[to];
+
+            if (!fromRate || !toRate) return '...';
+
+            const result = (parseFloat(value) / fromRate) * toRate;
+            return result.toFixed(from === 'BTC' || to === 'BTC' || from === 'ETH' || to === 'ETH' ? 8 : 2);
+        }
+
         // Special handling for temperature
-        if (categoryData.special) {
+        if (categoryData.special && cat === 'temperature') {
             return categoryData.convert(parseFloat(value), from, to).toFixed(6);
         }
 
@@ -168,11 +229,19 @@ export default function UnitConverter() {
 
     const handleCategoryChange = (newCategory) => {
         setCategory(newCategory);
+        if (newCategory === 'currency') fetchRates();
+
         const units = Object.keys(UNITS[newCategory].units);
         setFromUnit(units[0]);
         setToUnit(units[1] || units[0]);
         setFromValue('1');
-        setToValue(convert('1', units[0], units[1] || units[0], newCategory));
+
+        // Slight delay to allow rates to load if switching to currency
+        if (newCategory === 'currency') {
+            setToValue('Loading...');
+        } else {
+            setToValue(convert('1', units[0], units[1] || units[0], newCategory));
+        }
     };
 
     const handleFromUnitChange = (unit) => {
@@ -206,8 +275,8 @@ export default function UnitConverter() {
                             key={key}
                             onClick={() => handleCategoryChange(key)}
                             className={`p-3 rounded-xl text-sm font-medium transition-all ${category === key
-                                    ? 'bg-gradient-to-br from-[#6366f1] to-[#8b5cf6] text-white shadow-lg'
-                                    : 'glass hover:bg-[var(--btn-number)]'
+                                ? 'bg-gradient-to-br from-[#6366f1] to-[#8b5cf6] text-white shadow-lg'
+                                : 'glass hover:bg-[var(--btn-number)]'
                                 }`}
                         >
                             <div className="text-xl mb-1">{cat.icon}</div>

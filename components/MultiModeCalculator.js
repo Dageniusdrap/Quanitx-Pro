@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import Calculator from './Calculator';
 import UnitConverter from './UnitConverter';
 import StatisticsCalculator from './StatisticsCalculator';
@@ -108,7 +109,7 @@ export default function MultiModeCalculator() {
                         Quantix Pro • Scientific • Programmer • Financial • Statistics • Unit Converter
                     </p>
                     <p className="text-xs">
-                        Developed by <a href="https://github.com/TalentedVillagers" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--accent-primary)] transition-colors">Talented Villagers</a> • Early Access Premium • Free for a Limited Time
+                        Developed by <a href="https://github.com/TalentedVillagers" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--accent-primary)] transition-colors">Talented Villagers</a> • Early Access Premium • Free for a Limited Time • <Link href="/privacy-policy" className="hover:text-[var(--accent-primary)] transition-colors">Privacy Policy</Link>
                     </p>
                 </div>
             </div>
