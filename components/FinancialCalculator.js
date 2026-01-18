@@ -113,13 +113,13 @@ export default function FinancialCalculator() {
     };
 
     return (
-        <div className="max-w-6xl mx-auto p-6">
-            <div className="glass rounded-3xl p-6 shadow-2xl animate-in">
-                <h2 className="text-3xl font-bold gradient-text mb-6">💰 Financial Calculator</h2>
+        <div className="max-w-6xl mx-auto p-8">
+            <div className="glass rounded-3xl p-8 shadow-2xl animate-in">
+                <h2 className="text-3xl font-bold gradient-text mb-8">💰 Financial Calculator</h2>
 
-                <div className="grid lg:grid-cols-2 gap-6">
+                <div className="grid lg:grid-cols-2 gap-8">
                     {/* Loan Calculator */}
-                    <div className="glass rounded-2xl p-6">
+                    <div className="glass rounded-2xl p-8">
                         <h3 className="text-2xl font-semibold mb-4">🏠 Loan Calculator</h3>
 
                         <div className="space-y-4">
@@ -208,7 +208,7 @@ export default function FinancialCalculator() {
                     </div>
 
                     {/* Investment Calculator */}
-                    <div className="glass rounded-2xl p-6">
+                    <div className="glass rounded-2xl p-8">
                         <h3 className="text-2xl font-semibold mb-4">📈 Investment Calculator</h3>
 
                         <div className="space-y-4">

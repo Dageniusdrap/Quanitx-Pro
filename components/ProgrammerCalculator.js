@@ -129,19 +129,19 @@ export default function ProgrammerCalculator() {
     const multiBase = getMultiBaseDisplay();
 
     return (
-        <div className="max-w-4xl mx-auto p-6">
-            <div className="glass rounded-3xl p-6 shadow-2xl animate-in">
+        <div className="max-w-4xl mx-auto p-8">
+            <div className="glass rounded-3xl p-8 shadow-2xl animate-in">
                 <h2 className="text-3xl font-bold gradient-text mb-6">💻 Programmer Calculator</h2>
 
                 {/* Mode Selector */}
-                <div className="grid grid-cols-4 gap-2 mb-6">
+                <div className="grid grid-cols-4 gap-3 mb-8">
                     {['DEC', 'HEX', 'BIN', 'OCT'].map(m => (
                         <button
                             key={m}
                             onClick={() => handleModeChange(m)}
                             className={`py-3 rounded-xl font-semibold transition-all ${mode === m
-                                    ? 'bg-gradient-to-br from-[#6366f1] to-[#8b5cf6] text-white shadow-lg'
-                                    : 'glass hover:bg-[var(--btn-number)]'
+                                ? 'bg-gradient-to-br from-[#6366f1] to-[#8b5cf6] text-white shadow-lg'
+                                : 'glass hover:bg-[var(--btn-number)]'
                                 }`}
                         >
                             {m}
@@ -150,7 +150,7 @@ export default function ProgrammerCalculator() {
                 </div>
 
                 {/* Multi-Base Display */}
-                <div className="glass rounded-2xl p-6 mb-6 space-y-3">
+                <div className="glass rounded-2xl p-6 mb-8 space-y-3">
                     <div className="text-right">
                         <div className="text-sm text-[var(--text-secondary)]">
                             {previousValue !== null && operation && `${previousValue} ${operation}`}
@@ -181,7 +181,7 @@ export default function ProgrammerCalculator() {
                 </div>
 
                 {/* Buttons */}
-                <div className="grid grid-cols-5 gap-2">
+                <div className="grid grid-cols-5 gap-3">
                     {/* Row 1: Bitwise Operations */}
                     <Button variant="function" onClick={() => handleOperation('AND')}>AND</Button>
                     <Button variant="function" onClick={() => handleOperation('OR')}>OR</Button>

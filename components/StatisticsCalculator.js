@@ -125,12 +125,12 @@ export default function StatisticsCalculator() {
     );
 
     return (
-        <div className="max-w-6xl mx-auto p-6">
-            <div className="glass rounded-3xl p-6 shadow-2xl animate-in">
-                <h2 className="text-3xl font-bold gradient-text mb-6">📊 Statistics Calculator</h2>
+        <div className="max-w-6xl mx-auto p-8">
+            <div className="glass rounded-3xl p-8 shadow-2xl animate-in">
+                <h2 className="text-3xl font-bold gradient-text mb-8">📊 Statistics Calculator</h2>
 
                 {/* Data Input */}
-                <div className="mb-6">
+                <div className="mb-8">
                     <h3 className="text-xl font-semibold mb-3">Enter Data</h3>
                     <div className="glass rounded-2xl p-4">
                         <label className="block text-sm text-[var(--text-secondary)] mb-2">
@@ -153,7 +153,7 @@ export default function StatisticsCalculator() {
 
                 {/* Results */}
                 {results && (
-                    <div className="space-y-6 mb-6">
+                    <div className="space-y-6 mb-8">
                         <h3 className="text-xl font-semibold">Results</h3>
 
                         {/* Basic Stats */}

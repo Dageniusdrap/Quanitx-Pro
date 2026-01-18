@@ -270,10 +270,10 @@ export default function Calculator() {
     }, [handleNumber, handleDecimal, handleOperation, handleEquals, handleBackspace, handlePercent]);
 
     return (
-        <div className="min-h-screen flex items-center justify-center p-4 relative z-10">
-            <div className="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="min-h-screen flex items-center justify-center p-4 lg:p-8 relative z-10">
+            <div className="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-3 gap-8">
                 {/* Main Calculator */}
-                <div className="lg:col-span-2 glass rounded-3xl p-6 shadow-2xl animate-in">
+                <div className="lg:col-span-2 glass rounded-3xl p-8 shadow-2xl animate-in">
                     {/* Header */}
                     <div className="mb-6 flex items-center justify-between">
                         <h1 className="text-3xl font-bold gradient-text">Scientific Calculator</h1>
@@ -315,7 +315,7 @@ export default function Calculator() {
                     )}
 
                     {/* Main Buttons Grid */}
-                    <div className="grid grid-cols-5 gap-3">
+                    <div className="grid grid-cols-5 gap-4">
                         {/* Row 1: Memory & Clear */}
                         <Button variant="function" onClick={handleMemoryClear}>MC</Button>
                         <Button variant="function" onClick={handleMemoryRecall}>MR</Button>
@@ -386,7 +386,7 @@ export default function Calculator() {
                 </div>
 
                 {/* History Panel */}
-                <div className="glass rounded-3xl p-6 shadow-2xl animate-in lg:block" style={{ animationDelay: '0.1s' }}>
+                <div className="glass rounded-3xl p-8 shadow-2xl animate-in lg:block" style={{ animationDelay: '0.1s' }}>
                     <h2 className="text-2xl font-bold gradient-text mb-4">History</h2>
                     <div className="space-y-2 max-h-[600px] overflow-y-auto">
                         {history.length === 0 ? (

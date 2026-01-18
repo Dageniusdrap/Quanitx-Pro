@@ -98,7 +98,7 @@ export default function MultiModeCalculator() {
             </div>
 
             {/* Calculator Content */}
-            <div className="relative z-10">
+            <div className="relative z-10 max-w-7xl mx-auto px-4 py-12">
                 <ActiveComponent />
             </div>
 
