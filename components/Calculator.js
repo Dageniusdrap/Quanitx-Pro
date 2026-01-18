@@ -270,10 +270,10 @@ export default function Calculator() {
     }, [handleNumber, handleDecimal, handleOperation, handleEquals, handleBackspace, handlePercent]);
 
     return (
-        <div className="min-h-screen flex items-center justify-center lg:items-start p-4 lg:p-8 relative z-10">
+        <div className="min-h-screen flex items-center justify-center p-4 lg:p-8 relative z-10">
             <div className="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-3 gap-8">
                 {/* Main Calculator */}
-                <div className="lg:col-span-2 bg-[var(--card-bg)] border border-[var(--border-primary)] rounded-xl p-8 shadow-sm">
+                <div className="lg:col-span-2 glass rounded-3xl p-8 shadow-2xl animate-in">
                     {/* Header */}
                     <div className="mb-6 flex items-center justify-between">
                         <h1 className="text-3xl font-bold gradient-text">Scientific Calculator</h1>
@@ -386,7 +386,7 @@ export default function Calculator() {
                 </div>
 
                 {/* History Panel */}
-                <div className="bg-[var(--card-bg)] border border-[var(--border-primary)] rounded-xl p-8 shadow-sm lg:block">
+                <div className="glass rounded-3xl p-8 shadow-2xl animate-in lg:block" style={{ animationDelay: '0.1s' }}>
                     <h2 className="text-2xl font-bold gradient-text mb-4">History</h2>
                     <div className="space-y-2 max-h-[600px] overflow-y-auto">
                         {history.length === 0 ? (
