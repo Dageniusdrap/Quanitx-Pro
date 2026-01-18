@@ -113,8 +113,8 @@ export default function FinancialCalculator() {
     };
 
     return (
-        <div className="max-w-6xl mx-auto p-8">
-            <div className="glass rounded-3xl p-8 shadow-2xl animate-in">
+        <div className="w-full max-w-5xl mx-auto animate-in">
+            <div className="glass rounded-3xl p-8 shadow-2xl">
                 <h2 className="text-3xl font-bold gradient-text mb-8">💰 Financial Calculator</h2>
 
                 <div className="grid lg:grid-cols-2 gap-8">

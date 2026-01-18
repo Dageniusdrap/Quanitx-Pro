@@ -17,21 +17,27 @@ const MODES = {
 };
 
 export default function MultiModeCalculator() {
-    const [activeMode, setActiveMode] = useState('scientific');
-    const [theme, setTheme] = useState('dark');
+    const [activeMode, setActiveMode] = useState(() => {
+        if (typeof window !== 'undefined') {
+            const saved = localStorage.getItem('calculatorMode');
+            return (saved && MODES[saved]) ? saved : 'scientific';
+        }
+        return 'scientific';
+    });
 
-    // Load saved preferences
-    useEffect(() => {
-        const savedMode = localStorage.getItem('calculatorMode');
-        const savedTheme = localStorage.getItem('calculatorTheme');
-        if (savedMode && MODES[savedMode]) setActiveMode(savedMode);
-        if (savedTheme) setTheme(savedTheme);
-    }, []);
+    const [theme, setTheme] = useState(() => {
+        if (typeof window !== 'undefined') {
+            return localStorage.getItem('calculatorTheme') || 'dark';
+        }
+        return 'dark';
+    });
 
-    // Save preferences
+    // Save preferences and apply theme
     useEffect(() => {
-        localStorage.setItem('calculatorMode', activeMode);
-        localStorage.setItem('calculatorTheme', theme);
+        if (typeof window !== 'undefined') {
+            localStorage.setItem('calculatorMode', activeMode);
+            localStorage.setItem('calculatorTheme', theme);
+        }
 
         // Apply theme
         if (theme === 'light') {
@@ -45,10 +51,10 @@ export default function MultiModeCalculator() {
 
     return (
         <div className="min-h-screen relative">
-            {/* Header */}
+            {/* Header Area */}
             <div className="sticky top-0 z-50 glass border-b border-[var(--glass-border)]">
-                <div className="max-w-7xl mx-auto px-4 py-4">
-                    <div className="flex items-center justify-between mb-4">
+                <div className="max-w-7xl mx-auto px-6 md:px-12 py-4">
+                    <div className="flex items-center justify-between">
                         <div>
                             <h1 className="text-2xl md:text-3xl font-bold gradient-text">
                                 Quantix Pro
@@ -77,16 +83,20 @@ export default function MultiModeCalculator() {
                             </button>
                         </div>
                     </div>
+                </div>
+            </div>
 
-                    {/* Mode Tabs */}
-                    <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-thin">
+            {/* Mode Switcher Area - Centered for Profesional look */}
+            <div className="sticky top-[73px] z-40 glass border-b border-[var(--glass-border)] py-3">
+                <div className="max-w-7xl mx-auto px-6 md:px-12">
+                    <div className="flex gap-3 overflow-x-auto pb-1 scrollbar-hide justify-center">
                         {Object.entries(MODES).map(([key, mode]) => (
                             <button
                                 key={key}
                                 onClick={() => setActiveMode(key)}
-                                className={`flex items-center gap-2 px-4 py-2 rounded-xl font-medium text-sm whitespace-nowrap transition-all ${activeMode === key
-                                    ? 'bg-gradient-to-br from-[#6366f1] to-[#8b5cf6] text-white shadow-lg scale-105'
-                                    : 'glass hover:bg-[var(--btn-number)]'
+                                className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-medium text-sm whitespace-nowrap transition-all duration-300 ${activeMode === key
+                                    ? 'bg-gradient-to-br from-[#6366f1] to-[#8b5cf6] text-white shadow-lg shadow-[#6366f1]/20 scale-105'
+                                    : 'glass hover:bg-[var(--btn-number)] border border-transparent hover:border-[var(--glass-border)]'
                                     }`}
                             >
                                 <span className="text-lg">{mode.icon}</span>
@@ -97,19 +107,21 @@ export default function MultiModeCalculator() {
                 </div>
             </div>
 
-            {/* Calculator Content */}
-            <div className="relative z-10 max-w-7xl mx-auto px-4 py-12">
-                <ActiveComponent />
+            {/* Main Content Area - Away from left edge and centered */}
+            <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 py-16 min-h-[60vh]">
+                <div className="flex flex-col items-center w-full">
+                    <ActiveComponent />
+                </div>
             </div>
 
-            {/* Footer */}
+            {/* Footer Area */}
             <div className="glass border-t border-[var(--glass-border)] mt-8">
-                <div className="max-w-7xl mx-auto px-4 py-6 text-center text-sm text-[var(--text-secondary)]">
-                    <p className="mb-2">
+                <div className="max-w-7xl mx-auto px-6 md:px-12 py-10 text-center text-sm text-[var(--text-secondary)]">
+                    <p className="mb-4">
                         Quantix Pro • Scientific • Programmer • Financial • Statistics • Unit Converter
                     </p>
                     <p className="text-xs">
-                        Developed by <a href="https://github.com/TalentedVillagers" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--accent-primary)] transition-colors">Talented Villagers</a> • Early Access Premium • Free for a Limited Time • <Link href="/privacy-policy" className="hover:text-[var(--accent-primary)] transition-colors">Privacy Policy</Link>
+                        Developed by <a href="https://github.com/TalentedVillagers" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--accent-primary)] transition-colors">Talented Villagers</a> • Early Access Premium • <Link href="/privacy-policy" className="hover:text-[var(--accent-primary)] transition-colors">Privacy Policy</Link>
                     </p>
                 </div>
             </div>

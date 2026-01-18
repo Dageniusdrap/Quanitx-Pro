@@ -264,8 +264,8 @@ export default function UnitConverter() {
     };
 
     return (
-        <div className="max-w-4xl mx-auto p-8">
-            <div className="glass rounded-3xl p-8 shadow-2xl animate-in">
+        <div className="w-full max-w-4xl mx-auto animate-in">
+            <div className="glass rounded-3xl p-8 shadow-2xl">
                 <h2 className="text-3xl font-bold gradient-text mb-8">Unit Converter</h2>
 
                 {/* Category Selector */}

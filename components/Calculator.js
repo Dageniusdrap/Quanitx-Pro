@@ -270,8 +270,8 @@ export default function Calculator() {
     }, [handleNumber, handleDecimal, handleOperation, handleEquals, handleBackspace, handlePercent]);
 
     return (
-        <div className="min-h-screen flex items-center justify-center p-4 lg:p-8 relative z-10">
-            <div className="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="w-full animate-in">
+            <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8 px-4">
                 {/* Main Calculator */}
                 <div className="lg:col-span-2 glass rounded-3xl p-8 shadow-2xl animate-in">
                     {/* Header */}
