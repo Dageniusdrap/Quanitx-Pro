@@ -17,27 +17,26 @@ const MODES = {
 };
 
 export default function MultiModeCalculator() {
-    const [activeMode, setActiveMode] = useState(() => {
-        if (typeof window !== 'undefined') {
-            const saved = localStorage.getItem('calculatorMode');
-            return (saved && MODES[saved]) ? saved : 'scientific';
-        }
-        return 'scientific';
-    });
+    const [activeMode, setActiveMode] = useState('scientific');
+    const [theme, setTheme] = useState('dark');
+    const [mounted, setMounted] = useState(false);
 
-    const [theme, setTheme] = useState(() => {
-        if (typeof window !== 'undefined') {
-            return localStorage.getItem('calculatorTheme') || 'dark';
-        }
-        return 'dark';
-    });
+    // Load preferences and handle mounting
+    useEffect(() => {
+        setMounted(true);
+        const savedMode = localStorage.getItem('calculatorMode');
+        const savedTheme = localStorage.getItem('calculatorTheme');
+
+        if (savedMode && MODES[savedMode]) setActiveMode(savedMode);
+        if (savedTheme) setTheme(savedTheme);
+    }, []);
 
     // Save preferences and apply theme
     useEffect(() => {
-        if (typeof window !== 'undefined') {
-            localStorage.setItem('calculatorMode', activeMode);
-            localStorage.setItem('calculatorTheme', theme);
-        }
+        if (!mounted) return;
+
+        localStorage.setItem('calculatorMode', activeMode);
+        localStorage.setItem('calculatorTheme', theme);
 
         // Apply theme
         if (theme === 'light') {
@@ -45,7 +44,12 @@ export default function MultiModeCalculator() {
         } else {
             document.documentElement.classList.remove('light-theme');
         }
-    }, [activeMode, theme]);
+    }, [activeMode, theme, mounted]);
+
+    // Prevent hydration mismatch by not rendering until mounted
+    if (!mounted) {
+        return <div className="min-h-screen bg-[#0a0a0f]" />;
+    }
 
     const ActiveComponent = MODES[activeMode].component;
 
