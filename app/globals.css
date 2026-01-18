@@ -2,36 +2,42 @@
 @import "tailwindcss";
 
 :root {
-  /* Dark Theme Colors */
-  --bg-primary: #0a0a0f;
-  --bg-secondary: #13131a;
-  --bg-tertiary: #1a1a24;
+  /* Enterprise Dark Theme Colors */
+  --bg-primary: #000000;
+  --bg-secondary: #0a0a0a;
+  --bg-tertiary: #111111;
+  --card-bg: #0a0a0a;
+
+  /* Borders */
+  --border-primary: #333333;
+  --border-subtle: #222222;
 
   /* Accent Colors */
-  --accent-primary: #6366f1;
-  --accent-secondary: #8b5cf6;
-  --accent-tertiary: #ec4899;
-
-  /* Glass Effect */
-  --glass-bg: rgba(255, 255, 255, 0.05);
-  --glass-border: rgba(255, 255, 255, 0.1);
+  --accent-primary: #ffffff;
+  --accent-secondary: #eaeaea;
+  --accent-tertiary: #333333;
+  --accent-highlight: #0070f3;
+  /* Vercel Blue for primary actions */
 
   /* Text Colors */
-  --text-primary: #ffffff;
-  --text-secondary: #a0a0b0;
-  --text-tertiary: #6b6b80;
+  --text-primary: #ededed;
+  --text-secondary: #888888;
+  --text-tertiary: #444444;
 
-  /* Button Colors */
-  --btn-number: rgba(99, 102, 241, 0.1);
-  --btn-operator: rgba(139, 92, 246, 0.15);
-  --btn-function: rgba(236, 72, 153, 0.1);
-  --btn-equals: linear-gradient(135deg, #6366f1, #8b5cf6);
+  /* Button Colors - Monochrome */
+  --btn-number: #111111;
+  --btn-operator: #000000;
+  --btn-function: #222222;
+  --btn-equals: #0070f3;
+  /* The only pop of color */
+  --btn-utils: #333333;
 
-  /* Shadows */
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
-  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.2);
-  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.3);
-  --shadow-glow: 0 0 20px rgba(99, 102, 241, 0.3);
+  /* Glass Effect -> Card Effect */
+  --glass-bg: #0a0a0a;
+  --glass-border: #333333;
+
+  /* Shadows - Subtle */
+  --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
 }
 
 * {
@@ -42,8 +48,7 @@
 
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  background: linear-gradient(135deg, #0a0a0f 0%, #13131a 50%, #1a1a24 100%);
-  background-attachment: fixed;
+  background-color: var(--bg-primary);
   color: var(--text-primary);
   min-height: 100vh;
   overflow-x: hidden;
@@ -51,54 +56,46 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Animated Background */
-body::before {
-  content: '';
-  position: fixed;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 1px, transparent 1px);
-  background-size: 50px 50px;
-  animation: gridMove 20s linear infinite;
-  pointer-events: none;
-  z-index: 0;
-}
-
-@keyframes gridMove {
-  0% {
-    transform: translate(0, 0);
-  }
-
-  100% {
-    transform: translate(50px, 50px);
-  }
-}
-
 /* Scrollbar Styling */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--bg-secondary);
+  background: var(--bg-primary);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--accent-primary);
-  border-radius: 4px;
+  background: #333;
+  border-radius: 5px;
+  border: 2px solid var(--bg-primary);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--accent-secondary);
+  background: #555;
 }
 
-/* Custom Animations */
+/* Utility Classes - Redefined for Enterprise Look */
+.glass {
+  background: var(--card-bg);
+  border: 1px solid var(--border-primary);
+  border-radius: 8px;
+  /* Sharper corners */
+}
+
+.gradient-text {
+  color: var(--text-primary);
+  /* Remove excessive gradients for clean look */
+}
+
+.animate-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(5px);
   }
 
   to {
@@ -107,95 +104,19 @@ body::before {
   }
 }
 
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateX(-20px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes pulse {
-
-  0%,
-  100% {
-    opacity: 1;
-  }
-
-  50% {
-    opacity: 0.8;
-  }
-}
-
-@keyframes glow {
-
-  0%,
-  100% {
-    box-shadow: 0 0 5px rgba(99, 102, 241, 0.5);
-  }
-
-  50% {
-    box-shadow: 0 0 20px rgba(99, 102, 241, 0.8);
-  }
-}
-
-/* Utility Classes */
-.glass {
-  background: var(--glass-bg);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid var(--glass-border);
-}
-
-.gradient-text {
-  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.animate-in {
-  animation: fadeIn 0.5s ease-out;
-}
-
-/* Selection Styling */
-::selection {
-  background: var(--accent-primary);
-  color: white;
-}
-
-/* Light Theme */
+/* Light Theme - Optional preservation */
 .light-theme {
-  --bg-primary: #f5f7fa;
-  --bg-secondary: #ffffff;
-  --bg-tertiary: #e8eef5;
-
-  --text-primary: #1a1a2e;
-  --text-secondary: #4a4a68;
-  --text-tertiary: #7a7a98;
-
-  --glass-bg: rgba(255, 255, 255, 0.8);
-  --glass-border: rgba(0, 0, 0, 0.1);
-
-  --btn-number: rgba(99, 102, 241, 0.08);
-  --btn-operator: rgba(139, 92, 246, 0.12);
-  --btn-function: rgba(236, 72, 153, 0.08);
+  --bg-primary: #ffffff;
+  --bg-secondary: #fafafa;
+  --card-bg: #ffffff;
+  --border-primary: #eaeaea;
+  --text-primary: #000000;
+  --text-secondary: #666666;
+  --btn-bg: #ffffff;
+  --btn-hover: #f7f7f7;
 }
 
 .light-theme body {
-  background: linear-gradient(135deg, #f5f7fa 0%, #ffffff 50%, #e8eef5 100%);
+  background-color: var(--bg-primary);
   color: var(--text-primary);
-}
-
-.light-theme body::before {
-  background: radial-gradient(circle, rgba(99, 102, 241, 0.05) 1px, transparent 1px);
-}
-
-.light-theme ::selection {
-  background: var(--accent-primary);
-  color: white;
 }

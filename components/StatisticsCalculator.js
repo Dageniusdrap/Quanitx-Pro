@@ -1,6 +1,13 @@
 'use client';
 
-import { useState } from 'react';
+const StatCard = ({ label, value }) => (
+    <div className="bg-[var(--card-bg)] border border-[var(--border-primary)] rounded-xl p-4">
+        <div className="text-sm text-[var(--text-secondary)] mb-1">{label}</div>
+        <div className="text-2xl font-semibold text-white">
+            {typeof value === 'number' ? value.toFixed(4) : value}
+        </div>
+    </div>
+);
 
 export default function StatisticsCalculator() {
     const [dataInput, setDataInput] = useState('');
@@ -115,18 +122,9 @@ export default function StatisticsCalculator() {
         });
     };
 
-    const StatCard = ({ label, value }) => (
-        <div className="glass rounded-xl p-4">
-            <div className="text-sm text-[var(--text-secondary)] mb-1">{label}</div>
-            <div className="text-2xl font-semibold text-white">
-                {typeof value === 'number' ? value.toFixed(4) : value}
-            </div>
-        </div>
-    );
-
     return (
         <div className="max-w-6xl mx-auto p-8">
-            <div className="glass rounded-3xl p-8 shadow-2xl animate-in">
+            <div className="bg-[var(--card-bg)] border border-[var(--border-primary)] rounded-xl p-8 shadow-sm">
                 <h2 className="text-3xl font-bold gradient-text mb-8">📊 Statistics Calculator</h2>
 
                 {/* Data Input */}

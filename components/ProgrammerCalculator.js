@@ -130,7 +130,7 @@ export default function ProgrammerCalculator() {
 
     return (
         <div className="max-w-4xl mx-auto p-8">
-            <div className="glass rounded-3xl p-8 shadow-2xl animate-in">
+            <div className="bg-[var(--card-bg)] border border-[var(--border-primary)] rounded-xl p-8 shadow-sm">
                 <h2 className="text-3xl font-bold gradient-text mb-6">💻 Programmer Calculator</h2>
 
                 {/* Mode Selector */}
